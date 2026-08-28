@@ -1,15 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Minha Pokédex</h1>
-    {% for poke in pokemon %}
-        <p>{{ poke.name }}</p>
-        <img src="{{ poke.sprites.front_default }}" alt="{{ poke.name }}">
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main class="container py-4 py-md-5">
+        <section class="hero rounded-4 p-4 p-md-5 mb-4 mb-md-5 text-white shadow-sm">
+            <div class="row align-items-center g-4">
+                <div class="col-md-7">
+                    <p class="text-uppercase small fw-bold mb-2">Mundo Pokémon</p>
+                    <p class="lead mb-0">
+                        Conheça os pokémons e descubra suas habilidades. Explore o mundo dos pokémons e encontre seu time perfeito!
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-5 text-center">
+                <img src="{% static 'images/logo.jpg' %}" alt="Pokémon" class="img-fluid">
+            </div>
+        </section>
+
+        <section aria-labelledby="pokemon-title">
+            <div class="d-flex flex-column flex-sm-row justify-content-bettween align-items-center gap-2 mb-3" >
+                <h2 id="pokemon-title" class="h3 fw-bold mb-0">Pokemon em destaque</h2>
+                <span class="badge text-bg-warning align-self-start align-self-sm-center">
+                    20 descobertos
+                </span>
+                <div class="row g-4">
+                    {% for poke in pokemon %}
+                        <div class="col-12 col-md-6 col-lg-4">
+                      
+                            <article class="card pokemon-card h-100 border-0 shadow-sm">
+                                <h3 class="h4 card-title">{{ poke.name }}</h3>
+                                <img src="{{ poke.sprites.front_default }}" alt="{{ poke.name }}">
+                            </article>
+                       
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+   
+    </main>
+ {% endblock %}   
