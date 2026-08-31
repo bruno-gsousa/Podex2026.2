@@ -1,220 +1,32 @@
-* {
-    box-sizing: border-box;
+body{
+    min-height: 100vh;
 }
 
-body {
-    margin: 0;
-    background: #f2f2f2;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #2f2f2f;
+.hero{
+    background:linear-gradient(135deg,#dc3445,#8f1d2c)
+}
+.hero-logo{
+    width:min(180px,60vw);
+    height: 100px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 5px solid rgba(255,255,255,0.8);
+    border-radius: 50%;
 }
 
-a {
-    text-decoration: none;
+.pokemon-card{
+    transition: 
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-img {
-    display: block;
-    max-width: 100%;
+.pokemon-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 0.75rem 1.5rem rgba(33,37,41,0.15) !important;
 }
 
-.navbar-pokedex {
-    background: #d92d46;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-
-.navbar-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.navbar-brand {
-    color: #fff;
-    font-weight: 700;
-    font-size: 2.1rem;
-    letter-spacing: -0.04em;
-}
-
-.explore-link {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.main-content {
-    padding-top: 3rem;
-    padding-bottom: 2rem;
-}
-
-.hero {
-    background: linear-gradient(90deg, #c51c34 0%, #d62d48 100%);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 8px 22px rgba(130, 18, 30, 0.15);
-    color: white;
-}
-
-.hero-label {
-    margin: 0 0 0.8rem;
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.08rem;
-    opacity: 0.95;
-}
-
-.hero h1 {
-    margin: 0;
-    font-size: clamp(2.8rem, 4vw, 4.7rem);
-    line-height: 0.95;
-    letter-spacing: -0.06em;
-    font-weight: 800;
-    max-width: 700px;
-}
-
-.hero-subtitle {
-    margin: 1.2rem 0 0;
-    font-size: 1.2rem;
-    opacity: 0.94;
-    max-width: 520px;
-}
-
-.pokeball-image {
-    width: 240px;
-    height: 240px;
-    margin: 0 auto;
+.pokeball-image{
+    height: 160px;
     object-fit: contain;
-    filter: drop-shadow(0 10px 12px rgba(0,0,0,0.18));
 }
 
-.featured {
-    margin-top: 0.5rem;
-}
-
-.featured-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.featured-header h2 {
-    margin: 0;
-    color: #1f1f1f;
-    font-size: clamp(2.1rem, 2vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.05em;
-}
-
-.badge-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 120px;
-    padding: 0.45rem 0.9rem;
-    border-radius: 0.75rem;
-    background: #f5d76e;
-    color: #1b1b1b;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border: 1px solid rgba(0,0,0,0.08);
-}
-
-.pokemon-card {
-    background: rgba(255,255,255,0.72);
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 18px;
-    overflow: hidden;
-    height: 100%;
-    box-shadow: 0 5px 12px rgba(0,0,0,0.05);
-}
-
-.card-image {
-    background: #f7f7f7;
-    padding: 1.2rem;
-    height: 230px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-}
-
-.card-image img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    image-rendering: pixelated;
-    filter: drop-shadow(0 8px 8px rgba(0,0,0,0.08));
-}
-
-.card-body {
-    padding: 1.2rem 1.1rem 1.3rem;
-}
-
-.type-pill {
-    display: inline-block;
-    margin-bottom: 0.8rem;
-    padding: 0.38rem 0.8rem;
-    border-radius: 0.7rem;
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: #ffffff;
-    background: #5d8ce9;
-}
-
-.type-electric {
-    background: #f5c947;
-    color: #2a2a2a;
-}
-
-.type-grass {
-    background: #63c86b;
-}
-
-.type-water {
-    background: #4a9fe8;
-}
-
-.card-body h3 {
-    margin: 0 0 0.7rem;
-    color: #1d1d1d;
-    font-size: clamp(1.9rem, 2vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: -0.05em;
-}
-
-.card-body p {
-    margin: 0;
-    color: #4a4a4a;
-    font-size: 1.02rem;
-    line-height: 1.5;
-}
-
-@media (max-width: 767px) {
-    .navbar-brand {
-        font-size: 1.6rem;
-    }
-
-    .explore-link {
-        font-size: 0.8rem;
-    }
-
-    .hero {
-        padding: 2rem 1.3rem;
-    }
-
-    .featured-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .badge-count {
-        align-self: flex-start;
-    }
-}

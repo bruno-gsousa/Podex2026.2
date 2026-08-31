@@ -13,23 +13,32 @@
                 </div>
             </div>
             <div class="col-md-5 text-center">
-                <img src="{% static 'images/logo.jpg' %}" alt="Pokémon" class="img-fluid">
+                <img src="{% static 'images/logo.jpg' %}" alt="Pokémon" class="img-fluid pokeball-image">
             </div>
         </section>
-
+        <div class="d-flex flex-column flex-sm-row justify-content-bettween align-items-center gap-2 mb-3" >
+            <h2 id="pokemon-title" class="h3 fw-bold mb-0">Pokemon em destaque</h2>
+            <span class="badge text-bg-warning align-self-start align-self-sm-center">
+                20 descobertos
+            </span>
+        </div>
         <section aria-labelledby="pokemon-title">
-            <div class="d-flex flex-column flex-sm-row justify-content-bettween align-items-center gap-2 mb-3" >
-                <h2 id="pokemon-title" class="h3 fw-bold mb-0">Pokemon em destaque</h2>
-                <span class="badge text-bg-warning align-self-start align-self-sm-center">
-                    20 descobertos
-                </span>
+            
                 <div class="row g-4">
                     {% for poke in pokemon %}
                         <div class="col-12 col-md-6 col-lg-4">
                       
                             <article class="card pokemon-card h-100 border-0 shadow-sm">
+                                <div clas="mini-card-top">
+                                    <span class="mini-id">#{{ poke.id|stringformat:"03d" }}</span>
+                                </div>
                                 <h3 class="h4 card-title">{{ poke.name }}</h3>
-                                <img src="{{ poke.sprites.front_default }}" alt="{{ poke.name }}">
+                                <img src="{{ poke.image }}" alt="{{ poke.name }}">
+                                <div class="mini-types">
+                                    {% for type in poke.types %}
+                                        <span class="type-{{ type|lower }}">{{ type }}|</span>
+                                    {% endfor %}
+                                </div>
                             </article>
                        
                         </div>
