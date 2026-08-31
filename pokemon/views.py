@@ -1,7 +1,27 @@
 import requests
-from django.shortcuts import render
+from django import forms 
+from django.shortcuts import get_object_or_404, redirect, render
 
-# Create your views here.
+from .models import Pokemon
+
+class PokemonForm(forms.ModelForm):
+    class Meta:
+        model = Pokemon
+        fields =["name","species","height","weight","types","abilities","image"]
+        widgets ={
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "species": forms.TextInput(attrs={"class": "form-control"}),
+            "height": forms.NumberInput(attrs={"class": "form-control","step":"0.1","min":"0"}),
+            "weight": forms.NumberInput(attrs={"class": "form-control","step":"0.1","min":"0"}),
+            "types": forms.TextInput(attrs={"class": "form-control"}),
+            "abilities":forms.TextInput(attrs={"class": "form-control"}),
+            "image": forms.URLInput(attrs={"class": "form-control"}),
+        }
+
+def _serialize_db_pokemon(pokemon):
+    types = [value.strip().title() for value in pokemon.types.split(",") if value.strip()]
+    abilities = [value.strip().title() for value in pokemon.abilities.split(",") if value.strip()]
+#continuar proxima aula
 
 def _serialize_api_pokemon(details):
     types = [item["type"]["name"].title() for item in details.get("types",[])]
