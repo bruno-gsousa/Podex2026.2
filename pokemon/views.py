@@ -21,7 +21,20 @@ class PokemonForm(forms.ModelForm):
 def _serialize_db_pokemon(pokemon):
     types = [value.strip().title() for value in pokemon.types.split(",") if value.strip()]
     abilities = [value.strip().title() for value in pokemon.abilities.split(",") if value.strip()]
-#continuar proxima aula
+    primary_type = types[0].lower() if types else "normal"
+
+    return{
+        "id": pokemon.pk,
+        "name": pokemon.name.title(),
+        "species": pokemon.species.title(),
+        "height": f"{pokemon.height:.1f} m",
+        "weight": f"{pokemon.weight:.1f} kg",
+        "types": type,
+        "abilities": abilities,
+        "image": pokemon.image,
+        "source": "db",
+
+    }
 
 def _serialize_api_pokemon(details):
     types = [item["type"]["name"].title() for item in details.get("types",[])]
@@ -54,3 +67,38 @@ def index(request):
        
     return render(request, 'index.html',{"pokemon":pokemons})
 
+
+def criar_pokemon(request):
+    if request.method == "POST":
+        form = PokemonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = PokemonForm()
+
+    return render(request,"cadastro_pokemon.html",{"form":form})    
+
+def editar_pokemon(request,pk):
+    pokemon = get_object_or_404(Pokemon,pk=pk) 
+    if request.method == "POST":
+        form = PokemonForm(request.POST,instance=pokemon) 
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = PokemonForm(instance=pokemon)
+    
+    return render(request, "cadastro_pokemon.html",{"form": form, "pokemon":pokemon})
+
+def deletar_pokemon(request,pk):
+    pokemon = get_object_or_404(Pokemon,pk=pk)
+    if request.method == "POST": 
+        pokemon.delete()
+        return redirect("index")
+    
+    return render(request,"confirmar_exclusao.html",{"pokemon":pokemon})
+
+def listar_pokemons(request):
+    pokemons = Pokemon.objects.all()
+    return render(request,"lista_pokemon.html",{"pokemons":pokemons})
