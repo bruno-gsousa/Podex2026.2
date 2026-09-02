@@ -1,2 +1,46 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4" >
+        <h2>Pokémon cadastrados</h2>
+        <a href="{% url 'criar_pokemon' %}" class="btn btn-danger">
+            Novo 
+        </a>
+    </div>
+    <div class="row g-4">
+        {% for poke in pokemons %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="Card h-100 shadow-sm border-0 rounded-4">
+                {% if poke.image %}
+                    <img src="{{ poke.image }}" class="card-img-top p-3" 
+                    alt="{{ poke.name }}" style="height: 220px; object-fit: cantain;" />
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ poke.name }}</h5>
+                    <p class="mb-1"><strong>Espécie:</strong>{{ poke.species }}</p>
+                    <p class="mb-1"><strong>Altura:</strong>{{ poke.height }} m</p>
+                    <p class="mb-1"><strong>Peso:</strong>{{ poke.weight }} kg</p>
+                    <p class="mb-1"><strong>Tipos:</strong>{{ poke.types }}</p>
+                    <p class="mb-1"><strong>Habilidades:</strong>{{ poke.abilities }} m</p>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <a href="{% url 'editar_pokemon' poke.pk %}" 
+                    class="btn btn-sm btn-outline-primary">Editar</a>
+
+                    <a href="{% url 'deletar_pokemon' poke.pk %}" 
+                    class="btn btn-sm btn-outline-danger">Excluir</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Nenhum Pokémon cadastrado ainda!!!
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
